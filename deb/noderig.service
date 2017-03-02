@@ -1,0 +1,19 @@
+[Unit]
+Description=Daemon for noderig
+After=
+Wants=
+Requires=
+
+[Service]
+Type=simple
+Restart=on-failure
+StartLimitInterval=20
+StartLimitBurst=5
+TimeoutStartSec=0
+Environment="HOME=/root"
+SyslogIdentifier=noderig
+ExecStart=/usr/bin/noderig --config /etc/noderig/config.yaml
+WorkingDirectory=/tmp
+
+[Install]
+WantedBy=multi-user.target

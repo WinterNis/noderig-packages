@@ -13,19 +13,20 @@ build: clean
 deb:
 		rm -f noderig*.deb
 		fpm -m "<kevin@d33d33.fr>" \
-		  --description "Sensision exporter for OS metrics" \
-			--url "https://github.com/runabove/noderig" \
-			--license "BSD-3-Clause" \
-			--version $(shell echo $$(./build/noderig version | awk '{print $$2}')) \
-			-n noderig \
+		  -n noderig \
 			-d logrotate \
 			-s dir -t deb \
 			-a all \
+			--description "Sensision exporter for OS metrics" \
+			--url "https://github.com/runabove/noderig" \
+			--license "BSD-3-Clause" \
+			--version $(shell echo $$(./build/noderig version | awk '{print $$2}')) \
 			--deb-user noderig \
 			--deb-group noderig \
 			--deb-no-default-config-files \
 			--config-files /etc/noderig/config.yaml \
 			--deb-init deb/noderig.init \
+			--deb-systemd deb/noderig.service \
 			--directories /opt/noderig \
 			--directories /var/log/noderig \
 			--before-install deb/before-install.sh \
